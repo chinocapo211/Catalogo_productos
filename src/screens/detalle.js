@@ -8,7 +8,7 @@ const Detalle = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = {
   all: {
     flex: 1,
     backgroundColor: '#f6f8fa', // Fondo gris claro similar al de GitHub
@@ -18,6 +18,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 16,
   },
-});
+};
 
 export default Detalle;

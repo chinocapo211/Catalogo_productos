@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, Image, FlatList, StyleSheet, SafeAreaView } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Navbar from '../components/navbar'; 
 
 const products = [
   { id: '1', name: 'Producto 1', image: 'https://via.placeholder.com/150?text=Imagen1' },
@@ -18,67 +20,89 @@ const carouselItems = [
 ];
 
 const Home = () => {
-  const renderProduct = ({ item }) => (
-    <View style={styles.productCard}>
-      <Image source={{ uri: item.image }} style={styles.productImage} />
-      <Text style={styles.productName}>{item.name}</Text>
-    </View>
-  );
-
-  const renderCarouselItem = ({ item }) => (
-    <Image source={{ uri: item.image }} style={styles.carouselImage} />
-  );
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Carousel
-        data={carouselItems}
-        renderItem={renderCarouselItem}
-        sliderWidth={300}
-        itemWidth={300}
-        loop={true}
-      />
-      <FlatList
-        data={products}
-        renderItem={renderProduct}
-        keyExtractor={item => item.id}
-        numColumns={2}
-        columnWrapperStyle={styles.row}
-      />
-    </SafeAreaView>
+    <div style={styles.container}>
+      <Navbar/>
+      <Slider {...settings}>
+        {carouselItems.map(item => (
+          <div key={item.id} style={styles.carouselSlide}>
+            <img src={item.image} alt={`Carousel ${item.id}`} style={styles.carouselImage} />
+          </div>
+        ))}
+      </Slider>
+      <h2 style={styles.title}>Productos</h2>
+      <div style={styles.productList}>
+        {products.map(item => (
+          <div key={item.id} style={styles.productCard}>
+            <img src={item.image} alt={item.name} style={styles.productImage} />
+            <p style={styles.productName}>{item.name}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
-    flex: 1,
-    backgroundColor: '#f6f8fa',
     padding: 16,
+    background: "#f6f8fa",
+    maxWidth: 1200,
+    margin: '0 auto',
   },
-  productCard: {
-    flex: 1,
-    margin: 8,
+  
+  carouselSlide: {
+    display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    elevation: 2,
   },
+
+  carouselImage: {
+    width: "100%",
+    height: "auto",
+    borderRadius: 4,
+  },
+  
+  title: {
+    textAlign: 'center',
+    margin: '20px 0',
+  },
+  
+  productList: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginTop: 16,
+  },
+  
+  productCard: {
+    width: "48%",
+    marginBottom: 16,
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    textAlign: "center",
+    padding: 8,
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+  },
+  
   productImage: {
     width: 100,
     height: 100,
     margin: 10,
+    borderRadius: 4,
   },
+  
   productName: {
     marginBottom: 10,
   },
-  carouselImage: {
-    width: 300,
-    height: 200,
-    borderRadius: 8,
-  },
-  row: {
-    justifyContent: 'space-between',
-  },
-});
+};
 
 export default Home;
