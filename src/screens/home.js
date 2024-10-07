@@ -3,20 +3,29 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Navbar from '../components/navbar'; 
+import foto1 from '../img/1.jpg';
+import foto2 from '../img/MedioAficheClasesHogar7.jpg';
+import foto3 from '../img/ofertas coto fin de semana.jpg';
+import producto1 from '../img/producto1.jpg'
+import producto2 from '../img/producto2.jpg'
+import producto3 from '../img/producto3.jpg'
+import producto4 from '../img/producto4.jpg'
+import producto5 from '../img/producto5.jpg'
+import producto6 from '../img/producto6.jpg'
 
 const products = [
-  { id: '1', name: 'Producto 1', image: 'https://via.placeholder.com/150?text=Imagen1' },
-  { id: '2', name: 'Producto 2', image: 'https://via.placeholder.com/150?text=Imagen2' },
-  { id: '3', name: 'Producto 3', image: 'https://via.placeholder.com/150?text=Imagen3' },
-  { id: '4', name: 'Producto 4', image: 'https://via.placeholder.com/150?text=Imagen4' },
-  { id: '5', name: 'Producto 5', image: 'https://via.placeholder.com/150?text=Imagen5' },
-  { id: '6', name: 'Producto 6', image: 'https://via.placeholder.com/150?text=Imagen6' },
+  { id: '1', name: 'Leche extra proteina', image: producto1 },
+  { id: '2', name: 'Leche larga vida', image: producto2 },
+  { id: '3', name: 'Leche liviana', image: producto3 },
+  { id: '4', name: 'Leche extra previoticos', image: producto4 },
+  { id: '5', name: 'Leche barista', image: producto5 },
+  { id: '6', name: 'Leche menos calorias', image: producto6 },
 ];
 
 const carouselItems = [
-  { id: '1', image: 'https://via.placeholder.com/300?text=Carousel1' },
-  { id: '2', image: 'https://via.placeholder.com/300?text=Carousel2' },
-  { id: '3', image: 'https://via.placeholder.com/300?text=Carousel3' },
+  { id: '1', image: foto1 },
+  { id: '2', image: foto2 },
+  { id: '3', image: foto3 },
 ];
 
 const Home = () => {
@@ -53,10 +62,12 @@ const Home = () => {
 
 const styles = {
   container: {
+    fontFamily: 'Roboto, sans-serif',
     padding: 16,
     background: "#f6f8fa",
     maxWidth: 1200,
     margin: '0 auto',
+    marginTop:"4%",
   },
   
   carouselSlide: {
@@ -66,8 +77,8 @@ const styles = {
   },
 
   carouselImage: {
-    width: "100%",
-    height: "auto",
+    width: 1200,
+    height: 600,
     borderRadius: 4,
   },
   
@@ -94,14 +105,15 @@ const styles = {
   },
   
   productImage: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
     margin: 10,
     borderRadius: 4,
   },
   
   productName: {
     marginBottom: 10,
+    fontSize: 20,
   },
 };
 
