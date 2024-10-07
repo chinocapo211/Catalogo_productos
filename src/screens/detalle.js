@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, StyleSheet, Text, SafeAreaView, Platform, KeyboardAvoidingView, Alert } from 'react';
 const Detalle = ({ navigation }) => {
   return (
-    <View styles={styles.all}>
-
-    </View>
+    <div styles={styles.all}>
+      <h1>Detalle</h1>
+    </div>
   );
 };
 

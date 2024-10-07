@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './screens/home';
-import Productos from './screens/productos';
+import Productos from './screens/productos.js';
 import Detalle from './screens/detalle';
 import Contacto from './screens/contacto';
 
