@@ -24,7 +24,7 @@ const products = [
   { id: '9', name: 'Leche chocolatada', image: producto9 },
 ];
 
-const Detalle = ({ navigation }) => {
+const Detalle = () => {
   const { id } = useParams();
   const product = products[id - 1];
 
@@ -35,7 +35,6 @@ const Detalle = ({ navigation }) => {
       <div style={styles.content}>
         <img src={product.image} alt={product.name} style={styles.image} />
         <div style={styles.numberContainer}>
-          
           <p style={styles.productName}>{product.name}</p>
           <p style={styles.number}>${id * 100}</p>
         </div>
@@ -57,24 +56,26 @@ const styles = {
   
   content: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start', // Cambiado para alinear desde la parte superior
     justifyContent: 'space-between',
   },
 
   image: {
-    width: 400,
-    height: 400,
+    width: 450,
+    height: 450,
     borderRadius: 10,
+    marginLeft: '20px' // Espaciado a la derecha de la imagen
   },
 
   numberContainer: {
     textAlign: 'left',
     width: '50%', // Ajusta el ancho según sea necesario
+    marginTop: '60px', // Espaciado hacia arriba para el número
   },
 
   title: {
     margin: '20px 0',
-    textAlign:"center",
+    textAlign: "center",
   },
 
   productName: {
@@ -89,3 +90,4 @@ const styles = {
 };
 
 export default Detalle;
+
