@@ -11,6 +11,7 @@ import producto6 from '../img/producto6.jpg';
 import producto7 from '../img/dulce.jpg';
 import producto8 from '../img/calcio.jpg';
 import producto9 from '../img/choco.jpg';
+import { Link } from 'react-router-dom';
 
 const products = [
   { id: '1', name: 'Leche extra proteina', image: producto1 },
@@ -49,9 +50,11 @@ const Home = () => {
         {filteredProducts.length > 0 ? (
           filteredProducts.map(item => (
             <div key={item.id} style={styles.productCard}>
+            <Link style={styles.navItem} to={`/detalle/${item.id}`}>
               <img src={item.image} alt={item.name} style={styles.productImage} />
               <p style={styles.productName}>{item.name}</p>
-            </div>
+            </Link>
+        </div>
           ))
         ) : (
           <p style={styles.noResults}>No se encontraron productos.</p>
@@ -124,6 +127,12 @@ const styles = {
     fontSize: 18,
     color: '#888',
   },
+  navItem:{
+    textDecoration: 'none',
+    color: 'inherit',
+    fontSize: 20,
+    fontWeight: 550,
+  }, 
 };
 
 export default Home;

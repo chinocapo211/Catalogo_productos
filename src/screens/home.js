@@ -15,7 +15,6 @@ import producto6 from '../img/producto6.jpg';
 import producto7 from '../img/dulce.jpg';
 import producto8 from '../img/calcio.jpg';
 import producto9 from '../img/choco.jpg';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 const products = [
   { id: '1', name: 'Leche extra proteina', image: producto1 },
@@ -41,17 +40,12 @@ const getRandomProducts = (array, num) => {
 };
 
 const Home = () => {
-  const navigate = useNavigate();
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-  };
-
-  const handleClick = (item) => {
-    navigate(`/detalle/${item}`);  // Navega a la ruta con el ID del producto
   };
 
   const randomProducts = getRandomProducts(products, 6);
@@ -136,6 +130,13 @@ const styles = {
   productName: {
     marginBottom: 10,
     fontSize: 20,
+  },
+
+  navItem:{
+    textDecoration: 'none',
+    color: 'inherit',
+    fontSize: 20,
+    fontWeight: 550,
   },
 };
 
