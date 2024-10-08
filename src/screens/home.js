@@ -15,7 +15,8 @@ import producto6 from '../img/producto6.jpg';
 import producto7 from '../img/dulce.jpg';
 import producto8 from '../img/calcio.jpg';
 import producto9 from '../img/choco.jpg';
-
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const products = [
   { id: '1', name: 'Leche extra proteina', image: producto1 },
   { id: '2', name: 'Leche larga vida', image: producto2 },
@@ -40,12 +41,17 @@ const getRandomProducts = (array, num) => {
 };
 
 const Home = () => {
+  const navigate = useNavigate();
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+  };
+
+  const handleClick = (item) => {
+    navigate(`/detalle/${item}`);  // Navega a la ruta con el ID del producto
   };
 
   const randomProducts = getRandomProducts(products, 6);
@@ -64,9 +70,11 @@ const Home = () => {
       <div style={styles.productList}>
         {randomProducts.map(item => (
           <div key={item.id} style={styles.productCard}>
-            <img src={item.image} alt={item.name} style={styles.productImage} />
-            <p style={styles.productName}>{item.name}</p>
-          </div>
+            <Link style={styles.navItem} to={`/detalle/${item.id}`}>
+              <img src={item.image} alt={item.name} style={styles.productImage} />
+              <p style={styles.productName}>{item.name}</p>
+            </Link>
+        </div>
         ))}
       </div>
     </div>

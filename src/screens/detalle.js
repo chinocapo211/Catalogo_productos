@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, StyleSheet, Text, SafeAreaView, Platform, KeyboardAvoidingView, Alert } from 'react';
+import { useParams } from 'react-router-dom';
 const Detalle = ({ navigation }) => {
+  const { id } = useParams();
   return (
     <div styles={styles.all}>
       <h1>Detalle</h1>
+      <h1>Detalle del producto {id}</h1>
     </div>
   );
 };
