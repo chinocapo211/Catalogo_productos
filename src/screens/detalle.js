@@ -1,42 +1,60 @@
-import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet, Text, SafeAreaView, Platform, KeyboardAvoidingView, Alert } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/navbar';
-import producto1 from '../img/producto1.jpg';
-import producto2 from '../img/producto2.jpg';
-import producto3 from '../img/producto3.jpg';
-import producto4 from '../img/producto4.jpg';
-import producto5 from '../img/producto5.jpg';
-import producto6 from '../img/producto6.jpg';
-import producto7 from '../img/dulce.jpg';
-import producto8 from '../img/calcio.jpg';
-import producto9 from '../img/choco.jpg';
-
-const products = [
-  { id: '1', name: 'Leche extra proteina', image: producto1 },
-  { id: '2', name: 'Leche larga vida', image: producto2 },
-  { id: '3', name: 'Leche liviana', image: producto3 },
-  { id: '4', name: 'Leche extra prebioticos', image: producto4 },
-  { id: '5', name: 'Leche barista', image: producto5 },
-  { id: '6', name: 'Leche menos calorias', image: producto6 },
-  { id: '7', name: 'Dulce de leche', image: producto7 },
-  { id: '8', name: 'Leche extra calcio', image: producto8 },
-  { id: '9', name: 'Leche chocolatada', image: producto9 },
-];
+import { detailProduct } from '../api/productsApi';
 
 const Detalle = () => {
   const { id } = useParams();
-  const product = products[id - 1];
+  const [product, setProduct] = useState({}); // Cambia a objeto vacío
+
+  const traerProductos = async () => {
+    try {
+      const result = await detailProduct(id);
+      console.log(result);
+      if (result.status === 200) {
+        console.log("Product retrieved successfully");
+        setProduct(result.data); 
+      } else {
+        console.log("Error retrieving product, status:", result.status);
+      }
+    } catch (error) {
+      console.error("Total error:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    traerProductos(); // Call function to fetch products on component mount
+  }, []);
+
+  // Function to determine the color of the rating based on its value
+  const getRatingColor = (rating) => {
+    if (rating > 4) return '#4a4'; // Dark green
+    if (rating >= 3) return '#ffcc00'; // Soft yellow
+    return 'red';
+  };
 
   return (
     <div style={styles.container}>
       <Navbar />
-      <h1 style={styles.title}>Detalle del producto</h1>
+      <h1 style={styles.title}>Product Details</h1>
       <div style={styles.content}>
-        <img src={product.image} alt={product.name} style={styles.image} />
+        <img src={product.thumbnail} alt={product.title} style={styles.image} />
         <div style={styles.numberContainer}>
-          <p style={styles.productName}>{product.name}</p>
-          <p style={styles.number}>${id * 100}</p>
+          <p style={styles.productName}>{product.title}</p>
+          <p style={styles.productDetail}>{product.description}</p>
+          <p style={styles.number}>${product.price}</p>
+          
+          {/* Show rating only if it exists */}
+          {product.rating && (
+            <p style={{ ...styles.rating, color: getRatingColor(product.rating) }}>
+              Rating: {product.rating}
+            </p>
+          )}
+
+          {/* Show additional info only if they exist */}
+          {product.stock && <p style={styles.stock}>Stock: {product.stock}</p>}
+          {product.brand && <p style={styles.brand}>Brand: {product.brand}</p>}
+          {product.category && <p style={styles.category}>Category: {product.category}</p>}
         </div>
       </div>
     </div>
@@ -56,7 +74,7 @@ const styles = {
   
   content: {
     display: 'flex',
-    alignItems: 'flex-start', // Cambiado para alinear desde la parte superior
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
 
@@ -64,13 +82,13 @@ const styles = {
     width: 450,
     height: 450,
     borderRadius: 10,
-    marginLeft: '20px' // Espaciado a la derecha de la imagen
+    marginLeft: '20px',
   },
 
   numberContainer: {
     textAlign: 'left',
-    width: '50%', // Ajusta el ancho según sea necesario
-    marginTop: '60px', // Espaciado hacia arriba para el número
+    width: '50%',
+    marginTop: '60px',
   },
 
   title: {
@@ -82,12 +100,37 @@ const styles = {
     fontWeight: 'bold',
     fontSize: '30px',
   },
+  
+  productDetail: {
+    fontSize: '20px',
+  },
 
   number: {
     fontSize: '30px',
     fontWeight: 'bold',
   },
+
+  rating: {
+    fontSize: '28px', // Decrease font size for rating
+    margin: '5px 0', // Add margin for spacing
+  },
+
+  additionalInfo: {
+    fontSize: '18px',
+    color: '#555',
+  },
+
+  stock: {
+    margin: '2px 0',
+  },
+
+  brand: {
+    margin: '2px 0',
+  },
+
+  category: {
+    margin: '2px 0',
+  },
 };
 
 export default Detalle;
-

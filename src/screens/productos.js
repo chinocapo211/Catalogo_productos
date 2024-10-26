@@ -1,35 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Navbar from '../components/navbar'; 
-import producto1 from '../img/producto1.jpg';
-import producto2 from '../img/producto2.jpg';
-import producto3 from '../img/producto3.jpg';
-import producto4 from '../img/producto4.jpg';
-import producto5 from '../img/producto5.jpg';
-import producto6 from '../img/producto6.jpg';
-import producto7 from '../img/dulce.jpg';
-import producto8 from '../img/calcio.jpg';
-import producto9 from '../img/choco.jpg';
+import { allProducts } from '../api/productsApi';
 import { Link } from 'react-router-dom';
-
-const products = [
-  { id: '1', name: 'Leche extra proteina', image: producto1 },
-  { id: '2', name: 'Leche larga vida', image: producto2 },
-  { id: '3', name: 'Leche liviana', image: producto3 },
-  { id: '4', name: 'Leche extra prebioticos', image: producto4 },
-  { id: '5', name: 'Leche barista', image: producto5 },
-  { id: '6', name: 'Leche menos calorias', image: producto6 },
-  { id: '7', name: 'Dulce de leche', image: producto7 },
-  { id: '8', name: 'Leche extra calcio', image: producto8 },
-  { id: '9', name: 'Leche chocolatada', image: producto9 },
-];
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredProducts = products.filter(item =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const [Products, setProducts] = useState([]);
+
+  const traerProductos = async () => {
+    try {
+      const result = await allProducts();
+      if (result.status === 200) {
+        console.log("Productos obtenidos con éxito");
+        setProducts(result.data.products); // Guardar los productos aleatorios en el estado
+      } else {
+        console.log("Error al obtener productos, status:", result.status);
+      }
+    } catch (error) {
+      console.error("Error al obtener productos:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    traerProductos(); // Llamar a la función para obtener productos al montar el componente
+  }, []);
+
+
+  const filteredProducts = Products.filter(item =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -51,8 +52,8 @@ const Home = () => {
           filteredProducts.map(item => (
             <div key={item.id} style={styles.productCard}>
             <Link style={styles.navItem} to={`/detalle/${item.id}`}>
-              <img src={item.image} alt={item.name} style={styles.productImage} />
-              <p style={styles.productName}>{item.name}</p>
+              <img src={item.images[0]} alt={item.title} style={styles.productImage} />
+              <p style={styles.productName}>{item.title}</p>
             </Link>
         </div>
           ))
