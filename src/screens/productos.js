@@ -5,7 +5,7 @@ import Navbar from '../components/navbar';
 import { allProducts } from '../api/productsApi';
 import { Link } from 'react-router-dom';
 
-const Home = () => {
+const Productos = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const [Products, setProducts] = useState([]);
@@ -136,4 +136,4 @@ const styles = {
   }, 
 };
 
-export default Home;
+export default Productos;

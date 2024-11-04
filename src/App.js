@@ -4,6 +4,7 @@ import Home from './screens/home';
 import Productos from './screens/productos.js';
 import Detalle from './screens/detalle';
 import Contacto from './screens/contacto';
+import Carrito from './screens/carrito.js';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/productos" element={<Productos />} />
         <Route path="/detalle/:id" element={<Detalle />} />
         <Route path="/contacto" element={<Contacto />} />
+        <Route path="/carrito" element={<Carrito />} />
       </Routes>
     </Router>
   );

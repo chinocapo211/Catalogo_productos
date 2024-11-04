@@ -3,7 +3,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Navbar from '../components/navbar'; 
 
-const Home = () => {
+const Contacto = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -144,4 +144,4 @@ const styles = {
   },
 };
 
-export default Home;
+export default Contacto;

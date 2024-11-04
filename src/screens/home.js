@@ -31,6 +31,12 @@ const Home = () => {
 
   const [randomProducts, setRandomProducts] = useState([]);
 
+  useEffect(() => {
+    if (!localStorage.getItem('productIds')) {
+      localStorage.setItem('productIds', JSON.stringify([])); // Crea un array vacío
+    }
+}, []);
+
   const traerProductos = async () => {
     try {
       const result = await allProducts();
