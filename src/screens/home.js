@@ -4,8 +4,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Navbar from '../components/navbar'; 
 import foto1 from '../img/1.jpg';
-import foto2 from '../img/MedioAficheClasesHogar7.jpg';
-import foto3 from '../img/ofertas coto fin de semana.jpg';
+import foto2 from '../img/2.jpg';
+import foto3 from '../img/3.jpg';
 import { allProducts } from '../api/productsApi';
 import { Link } from 'react-router-dom';
 
