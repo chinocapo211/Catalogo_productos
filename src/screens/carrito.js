@@ -10,7 +10,11 @@ const Carrito = () => {
   
     const quitarDelCarrito = (id) => {
         setProductosEnCarrito(productosEnCarrito.filter(producto => producto.id !== id));
+        let productIds = JSON.parse(localStorage.getItem('productIds')) || [];
+        productIds = productIds.filter(productId => Number(productId) !== id);
+        localStorage.setItem('productIds', JSON.stringify(productIds));
     };
+    
 
     const traerProductos = async () => {
         try {
@@ -34,17 +38,19 @@ const Carrito = () => {
   
     useEffect(() => {
         const productIds = JSON.parse(localStorage.getItem('productIds')) || [];
+        console.log(productIds)
         let listaCarro = [];
-    
+        
         productIds.forEach(id => {
-            const producto = productos.find(p => p.id === id);
+            const producto = productos[id-1]
+            console.log(producto)
             if (producto) {
                 listaCarro.push(producto);
             }
         });
     
         setProductosEnCarrito(listaCarro);
-    }, [productos,productosEnCarrito]);
+    }, [productos]);
     
 
     return (
